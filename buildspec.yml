@@ -1,13 +1,14 @@
 version: 0.2
-
 phases:
   install:
+    runtime-versions:
+      python: 3.9
     commands:
-      - echo Installing jq
-      - apt-get update && apt-get install -y jq
-
+      - echo "Installing cfn-lint..."
+      - pip install cfn-lint
   build:
     commands:
-      - echo Validating CloudFormation template...
+      - echo "Validating CloudFormation template..."
+      - cfn-lint template.yaml
       - aws cloudformation validate-template --template-body file://template.yaml
-      - echo Build completed.
+      - echo "Build completed successfully!"
