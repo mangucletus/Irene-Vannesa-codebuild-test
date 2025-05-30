@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing jq
+      - apt-get update && apt-get install -y jq
+
+  build:
+    commands:
+      - echo Validating CloudFormation template...
+      - aws cloudformation validate-template --template-body file://template.yaml
+      - echo Build completed.
